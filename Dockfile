@@ -20,3 +20,5 @@ docker build -t imageName .
 
 运行：
 docker run --name imageName -p 8003:8003 -d containerName
+指定配置文件运行：
+docker run -t -d -p 8002:8002 -v /home/www/mquery/log:/log -v /home/www/mquery/wxpaycert:/wxpaycert -v /home/www/mquery:/config --name mquery mquery --spring.config.location=/config/application.yml
