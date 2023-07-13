@@ -109,6 +109,20 @@ def find_pnode(node):
     pass
 
 
+def fetch_stocks(html):
+    soup = BeautifulSoup(html, 'lxml')
+    alist = soup.find_all("a")
+    for a in alist:
+        href = a.attrs["href"]
+        res = re.search(r'(?<=\/)[01]\.\d{6}', href, re.I)
+        if res is not None:
+            name = a.text
+            if name:
+                code = res.group()
+                return {"code":code, "name":name}
+    return None
+
+
 def begin():
     # pip install Elasticsearch==7.12
     es = Elasticsearch("http://localhost:9200", timeout=360)
