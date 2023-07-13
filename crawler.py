@@ -112,6 +112,7 @@ def find_pnode(node):
 def fetch_stocks(html):
     soup = BeautifulSoup(html, 'lxml')
     alist = soup.find_all("a")
+    res_list = []
     for a in alist:
         href = a.attrs["href"]
         res = re.search(r'(?<=\/)[01]\.\d{6}', href, re.I)
@@ -119,8 +120,8 @@ def fetch_stocks(html):
             name = a.text
             if name:
                 code = res.group()
-                return {"code":code, "name":name}
-    return None
+                res_list.append({"code":code, "name":name})
+    return res_list
 
 
 def begin():
